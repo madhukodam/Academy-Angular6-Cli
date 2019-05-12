@@ -20,9 +20,7 @@ export class BranchComponent implements OnDestroy, OnInit {
   branchdto: any;
 
   constructor(private branchService: BranchService,
-    // tslint:disable-next-line:align
     private modalService: NgbModal, private config: NgbDropdownConfig,
-    // tslint:disable-next-line:align
     private alertService: AlertService) { }
 
 
