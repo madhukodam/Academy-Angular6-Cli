@@ -1,0 +1,118 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default flat-panel wrapper-content-area">
+            <div class="panel-heading flat-panel">
+              Branch Info
+              <button type="button" class="btn btn-sm btn-custom btn-right" (click)="handleAddEdit(newUser)"> <span
+                  class="fa fa-plus"></span>
+                Add</button>
+            </div>
+            <div class="panel-body">
+              <div class="user-table">
+                <table datatable class="row-border table table-bordered table-striped" [dtOptions]="dtOptions"
+                  [dtTrigger]="dtTrigger">
+                  <thead>
+                    <tr>
+                      <th>BranchId</th>
+                      <th>Branch</th>
+                      <th>BranchAbbreviation</th>
+                      <th>Status</th>
+                      <th>DeptId</th>
+                      <th>InstId</th>
+                      <th>Action</th>
+                      <!-- <th>Action</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let branch of branches">
+                      <td>{{branch.branchId}}</td>
+                      <td>{{branch.branch}}</td>
+                      <td>{{branch.branchAbbreviation}}</td>
+                      <td>{{branch.status}}</td>
+                      <td>{{branch.deptId}}</td>
+                      <td>{{branch.instId}}</td>
+                      <td ngbDropdown>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-outline-dark btn-sm btn-custom" id="dropdownBasic1"
+                            ngbDropdownToggle><span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                            Action <span class="caret"></span></button>
+                          <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <li class="dropdown-item" (click)="handleAddEdit(branch.branchId, edit)" id="cstmBtn">
+                              Edit</li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #newUser let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add new user</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form class="form-horizontal" #addForm="ngForm">
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="">Firstname:</label>
+        <div class="col-md-4">
+          <input type="text" [(ngModel)]="firstname" name="firstname">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="">Lastname:</label>
+        <div class="col-md-4">
+          <input type="text" [(ngModel)]="lastname" name="lastname">
+        </div>
+      </div>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+    <button type="button" class="btn btn-outline-dark" (click)="addUser(addForm)">Add placement details</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #edit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" #userForm="ngForm">
+      <div class="form-group">
+        <label class="col-md-12 control-label" for="">NAME:</label>
+        <div class="col-md-4">
+          <input type="text" [(ngModel)]="branchdto.branchId" name="branchId">
+        </div>
+      </div>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+    <button type="button" class="btn btn-outline-dark" (click)="updateUser(userForm)">Update placement details</button>
+  </div>
+</ng-template>

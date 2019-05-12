@@ -1,0 +1,6 @@
+table.dataTable.no-footer{
+    border-bottom: none;
+}
+table tbody tr ul li{
+    cursor: pointer;
+}
