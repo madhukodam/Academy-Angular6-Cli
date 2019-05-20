@@ -19,6 +19,11 @@ import { BranchComponent } from './components/branch/branch.component';
 import { BranchService } from './services/branch.service';
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MainComponent } from './components/main/main.component';
+import { AlertComponent } from './components/directives/alert.component';
+import { ProgramComponent } from './components/program/program.component';
+import { ProgramDisplayComponent } from './components/program-display/program-display.component';
+import { ProgramTempComponent } from './components/program-temp/program-temp.component';
 
 @NgModule({
   declarations: [
@@ -30,17 +35,22 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CreateuserComponent,
     SearchuserComponent,
     UserinfoComponent,
-    BranchComponent
+    BranchComponent,
+    MainComponent,
+    AlertComponent,
+    ProgramComponent,
+    ProgramDisplayComponent,
+    ProgramTempComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     DataTablesModule,
     NgbModule,
-    FormsModule
-],
+  ],
   providers: [
     AuthGuard,
     AuthenticationService,

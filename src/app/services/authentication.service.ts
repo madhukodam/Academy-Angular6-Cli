@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { User } from '../models/user';
+import { UserDetails } from '../models/user';
 
 @Injectable()
 export class AuthenticationService {
-    user: User;
+    user: UserDetails;
     constructor(private http: HttpClient) { }
 
     login(username: string, password: string) {

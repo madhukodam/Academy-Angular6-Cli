@@ -1,0 +1,6 @@
+<h1>Programs</h1>
+<p *ngIf="branchData">ChildData : {{branchData?.branch + '- '+branchData.branchId}}</p>
+<div *ngFor="let branch of branches" style="width: 300px;">
+  <div (click)="getDetails(branch.branchId)">GetDetails----</div>
+  <app-program-display [branch]='branch' (notify)="handleNotify($event)"></app-program-display>
+</div>

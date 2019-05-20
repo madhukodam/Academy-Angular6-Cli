@@ -6,7 +6,7 @@
           <div class="panel panel-default flat-panel wrapper-content-area">
             <div class="panel-heading flat-panel">
               Branch Info
-              <button type="button" class="btn btn-sm btn-custom btn-right" (click)="handleAddEdit(newUser)"> <span
+              <button type="button" class="btn btn-sm btn-custom btn-right" (click)="handleAddEdit(0,newUser)"> <span
                   class="fa fa-plus"></span>
                 Add</button>
             </div>
@@ -42,6 +42,8 @@
                           <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
                             <li class="dropdown-item" (click)="handleAddEdit(branch.branchId, edit)" id="cstmBtn">
                               Edit</li>
+                            <li class="dropdown-item" (click)="handleDelete(branch.branchId, delete)" id="cstmBtn">
+                              Delete</li>
                           </ul>
                         </div>
                       </td>
@@ -58,11 +60,9 @@
   </div>
 </div>
 
-
-
 <ng-template #newUser let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Add new user</h4>
+    <h4 class="modal-title" id="modal-basic-title">Add Branch</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -71,23 +71,54 @@
 
     <form class="form-horizontal" #addForm="ngForm">
       <div class="form-group">
-        <label class="col-md-2 control-label" for="">Firstname:</label>
+        <label class="col-md-4 control-label" for="">Branch:</label>
         <div class="col-md-4">
-          <input type="text" [(ngModel)]="firstname" name="firstname">
+          <input type="text" [(ngModel)]="branchdto.branch" name="branch">
+          <p>{{ branch }}</p>
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-2 control-label" for="">Lastname:</label>
+        <label class="col-md-2 control-label" for="">BranchAbbreviation:</label>
         <div class="col-md-4">
-          <input type="text" [(ngModel)]="lastname" name="lastname">
+          <input type="text" [(ngModel)]="branchdto.branchAbbreviation" name="branchAbbreviation">
+          <p>{{ branchAbbreviation }}</p>
         </div>
       </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="">Department:</label>
+        <div class="col-md-4">
+          <select name="deptId" [(ngModel)]="branchdto.deptId">
+            <option *ngFor="let d of deptList let i = index" [attr.selected]="!i" [ngValue]="d.departmentId">
+              {{d.departmentName}}</option>
+          </select>
+
+
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="">Institution:</label>
+        <div class="col-md-4">
+          <select [(ngModel)]="branchdto.instId" [ngModelOptions]="{standalone: true}" name="instId">
+            <option *ngFor="let i of instList let i = index" [attr.selected]="!i" [ngValue]="i.instId">
+              {{i.instituteName}}</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="">Status:</label>
+        <div class="col-md-4">
+          <input type="checkbox" [(ngModel)]="branchdto.status" name="status">
+        </div>
+      </div>
+      <input type="hidden" name="branchId" [(ngModel)]="branchdto.branchId" />
+
     </form>
 
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
-    <button type="button" class="btn btn-outline-dark" (click)="addUser(addForm)">Add placement details</button>
+    <button type="button" class="btn btn-outline-dark" (click)="saveBranch()">Add</button>
   </div>
 </ng-template>
 
@@ -95,24 +126,59 @@
 
 <ng-template #edit let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Update</h4>
+    <h4 class="modal-title" id="modal-basic-title">Update {{ branchdto.branch }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form class="form-horizontal" #userForm="ngForm">
+
       <div class="form-group">
-        <label class="col-md-12 control-label" for="">NAME:</label>
+        <label class="col-md-4 control-label" for="">Branch:</label>
         <div class="col-md-4">
-          <input type="text" [(ngModel)]="branchdto.branchId" name="branchId">
+          <input type="text" [(ngModel)]="branchdto.branch" name="branch">
         </div>
       </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="">BranchAbbreviation:</label>
+        <div class="col-md-4">
+          <input type="text" [(ngModel)]="branchdto.branchAbbreviation" name="branchAbbreviation">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="">Department:</label>
+        <div class="col-md-4">
+          <select [(ngModel)]="branchdto.deptId" [ngModelOptions]="{standalone: true}" name="deptId"
+            value="branchdto.deptId">
+            <option *ngFor="let d of deptList" [selected]="d.departmentId === branchdto.deptId"
+              [ngValue]="d.departmentId">
+              {{d.departmentName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="">Institution:</label>
+        <div class="col-md-4">
+          <select [(ngModel)]="branchdto.instId" [ngModelOptions]="{standalone: true}" name="instId">
+            <option *ngFor="let i of instList" [attr.selected]="!i" [ngValue]="i.instId">
+              {{i.instituteName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="">Status:</label>
+        <div class="col-md-4">
+          <input type="checkbox" [(ngModel)]="branchdto.status" name="status">
+        </div>
+        <p>{{ status }}</p>
+      </div>
+      <input type="hidden" name="branchId" [(ngModel)]="branchdto.branchId" />
     </form>
 
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
-    <button type="button" class="btn btn-outline-dark" (click)="updateUser(userForm)">Update placement details</button>
+    <button type="button" class="btn btn-outline-dark" (click)="saveBranch()">Update</button>
   </div>
 </ng-template>

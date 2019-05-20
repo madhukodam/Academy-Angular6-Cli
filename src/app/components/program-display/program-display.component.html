@@ -1,0 +1,10 @@
+<div *ngIf="branch">
+  <div>
+    <label>Id: </label> {{branch.branchId}}
+  </div>
+  <div>
+    <label>Name: </label> {{branch.branch}}
+  </div>
+  <div (click)="handleClick()">ChildToParent -----</div>
+
+</div>

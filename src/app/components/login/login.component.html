@@ -1,24 +1,240 @@
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-       
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-image: url('../../../assets/images/login_bg_acdemy.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: -50px 300px;
+            background-position: center 60px;
+            background-position: center center;
+        }
+
+        .wrapper-left {
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+
+        .lgn-form-wrap {
+            padding-right: 45px;
+            padding-left: 45px;
+            padding-top: 0;
+        }
+
+        .wrapper-left-inner {
+            position: relative;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            left: 50%;
+        }
+
+        .lgn_link_title {
+            font-size: 46px;
+            color: #001c37;
+            font-weight: 300;
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
+
+        .login-msg {
+            border-bottom: 1px solid #a93400;
+            border-top: 1px solid #a93400;
+            background-color: #ffeeee;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+            padding: 12px 15px;
+            color: #a93400;
+        }
+
+        .login-msg {
+            border-bottom: 1px solid #a93400;
+            background-color: #ffeeee;
+            margin-left: -30px;
+            margin-right: -30px;
+            margin-top: -15px;
+            padding: 15px 15px;
+            color: #a93400;
+        }
+
+        .login-form {
+            margin-top: 20px;
+        }
+
+        .login-form {
+            margin-top: 40px;
+        }
+
+        .login-form .form-group .login-form-control {
+            color: #021b38;
+            font-size: 20px;
+            height: auto;
+            padding: 9px 15px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            background: transparent;
+            border-color: #525252;
+            box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 0.5411764705882353);
+        }
+
+        .login-form .btn {
+            font-size: 20px;
+            font-weight: 300;
+            margin-top: 20px;
+            border-radius: 0px;
+            padding: 9px 15px;
+            background-color: #021b38;
+            border-color: #666462;
+            outline: none;
+        }
+
+        .lgn-separator-text {
+            display: block;
+            width: 99%;
+            position: relative;
+            margin: auto;
+            margin-top: 0px;
+            margin-top: -3px;
+            margin-bottom: 12px;
+        }
+
+        .lgn-separator-text span {
+            position: relative;
+            z-index: 1;
+            display: block;
+            width: 40px;
+            font-size: 20px;
+            color: #7c7c7c;
+            margin: auto;
+            text-align: center;
+            border-radius: 50%;
+            line-height: 20px;
+        }
+
+        .lgn-separator-text:before,
+        .lgn-separator-text:after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 43%;
+            height: 1px;
+            background: #888;
+            top: 13px;
+        }
+
+        .lgn-separator-text:before {
+            left: 0;
+        }
+
+        .lgn-separator-text:before,
+        .lgn-separator-text:after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 43%;
+            height: 1px;
+            background: #888;
+            top: 13px;
+        }
+
+        a.googlelnk {
+            position: relative;
+            display: block;
+            width: auto;
+            height: 50px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 300;
+            padding: 8px 1px 1px 40px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #4285f4;
+            border-radius: 2px;
+            -webkit-box-shadow: 0 2px 4px 0px rgba(0, 0, 0, .25);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .25);
+            -webkit-transition: background-color .218s, border-color .218s, box-shadow .218s;
+            transition: background-color .218s, border-color .218s, box-shadow .218s;
+        }
+
+        a.googlelnk img {
+            position: absolute;
+            display: inline-block;
+            width: auto;
+            height: 96%;
+            margin-right: 12px;
+            background-color: #fff;
+            padding: 7px;
+            left: 1px;
+            top: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 wrapper-left">
+                <div class="logo">
+                    <img src="../../../assets/images/logo.png" alt="logo">
+                </div>
+                <div class="wrapper-left-inner">
+                    <div class="offset-md-2 col-md-8 lgn-form-wrap">
+                        <h2 class="lgn_link_title">Sign in</h2>
+                        <div class="login-msg" hidden="">Error Message goes here</div>
+                        <div class="login-form">
+                            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" formControlName="username" placeholder="Username"
+                                            class="form-control login-form-control" style="border-radius: 0px;"
+                                            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                            <div *ngIf="f.username.errors.required">Username is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" formControlName="password" placeholder="Password"
+                                            class="form-control login-form-control" style="border-radius: 0px;"
+                                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                            <div *ngIf="f.password.errors.required">Password is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button id="postloginform" [disabled]="loading"
+                                            class="btn btn-lg btn-primary btn-block">Sign
+                                            In</button>
+                                    </div>
+                                    <div class="lgn-separator-text"><span>or</span></div>
+                                    <div class="form-group">
+                                        <a id="googleSignUp" href="#" class="googlelnk">
+                                            <img src="../../../assets/images/google_logo.png"> Sign in with Google </a>
+                                    </div>
+                                    <a href="#" id="forgotPass1" class="login-frm-lnk">Forgot your Password?</a>
+
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">Login</button>
-        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-        <a [routerLink]="['/register']" class="btn btn-link">Register</a>
-    </div>
-</form>
+
+
+
+
+</body>
+
+</html>

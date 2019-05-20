@@ -4,9 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
-@Component({templateUrl: 'login.component.html'})
+@Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
@@ -14,11 +15,14 @@ export class LoginComponent implements OnInit {
     returnUrl: string;
 
     constructor(
+
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) {}
+        private alertService: AlertService,
+        private modalService: NgbModal) {
+    }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -57,4 +61,9 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
+    logout() {
+        this.authenticationService.logout();
+    }
+
 }
